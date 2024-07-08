@@ -1,0 +1,76 @@
+---
+import Card from "./Card.astro";
+
+const {} = Astro.props;
+---
+
+<div
+  class="p-12 gradient-speakers text-white about-us delay-[300ms] duration-[1200ms] taos:translate-y-[-200px] taos:opacity-0"
+  data-taos-offset="500"
+>
+  <div class="flex items-center gap-4 mb-10">
+    <div class="h-10 w-10">
+      <img src="/svg/dots-white.svg" alt="" />
+    </div>
+    <p class="text-2xl font-thin">Lorem Ipsum Dore Amit</p>
+  </div>
+  <div
+    class="flex flex-col xl:flex-row justify-between md:gap-[50px] gap-[50px]"
+  >
+    <div class="xl:max-w-2xl w-full flex flex-col gap-10">
+      <p class="text-[17px] md:text-[20px]">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde eum
+        veritatis fugit architecto voluptatem facere enim sequi hic quod rerum
+        optio nesciunt eius expedita nisi, cupiditate sint aut, voluptatibus
+        tempore?
+      </p>
+      <div>
+        <button
+          class="relative-button"
+          onmousemove="handleMouseMove(event)"
+          onmouseleave="handleMouseLeave(event)"
+        >
+          <span style="position: relative; z-index: 10;">Circle hover</span>
+          <div class="hover-effect"></div>
+        </button>
+      </div>
+    </div>
+
+    <div
+      class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-10 justify-between"
+    >
+      <Card name="Name" src="/images/random.jpg" />
+      <Card name="Name" src="/images/person-2.jpeg" />
+      <Card name="Name" src="/images/person-3.jpg" />
+      <Card name="Name" src="/images/person-4.jpg" />
+      <Card name="Name" src="/images/person-5.webp" />
+      <Card name="Name" src="/images/person-6.jpg" />
+    </div>
+  </div>
+</div>
+<script is:inline>
+  function handleMouseMove(event) {
+    const button = event.currentTarget;
+    const rect = button.getBoundingClientRect();
+    const effect = button.querySelector(".hover-effect");
+
+    const x = event.clientX - rect.left;
+    const y = event.clientY - rect.top;
+
+    effect.style.left = `${x}px`;
+    effect.style.top = `${y}px`;
+    effect.style.width = "200px"; // Ensure it fully covers the button
+    effect.style.height = "200px"; // Ensure it fully covers the button
+    effect.style.transform = "translate(-50%, -50%) scale(1)";
+  }
+
+  function handleMouseLeave(event) {
+    const button = event.currentTarget;
+    const effect = button.querySelector(".hover-effect");
+
+    // Reset the effect element
+    effect.style.width = "0";
+    effect.style.height = "0";
+    effect.style.transform = "scale(0)";
+  }
+</script>

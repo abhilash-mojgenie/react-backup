@@ -1,0 +1,161 @@
+#loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(-45deg, #373737, #0c5045, #373737);
+  background-size: 400% 400%;
+  animation: gradientBackground 10s ease infinite;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.gradient-speakers {
+  background-image: linear-gradient(
+    106.9deg,
+    #51a052 60.9%,
+    rgba(3, 22, 27, 1) 122.3%
+  );
+}
+#drag-1,
+#drag-2 {
+  width: 25%;
+  min-height: 6.5em;
+  margin: 1rem 0 0 1rem;
+  background-color: #29e;
+  color: white;
+  border-radius: 0.75em;
+  padding: 4%;
+  touch-action: none;
+  user-select: none;
+  transform: translate(0px, 0px);
+}
+.parent {
+  position: relative;
+  width: 100%;
+  height: 500px;
+  border: 1px solid #ccc;
+  overflow: hidden;
+}
+
+.draggable {
+  display: inline-block;
+  cursor: move;
+  user-select: none;
+  position: absolute; /* Ensure it's absolutely positioned for better dragging */
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
+  padding-top: 60px;
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 5% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+#canvasContainer {
+  width: 600px; /* Example width */
+  height: 300px; /* Example height */
+  position: relative;
+  margin: 20px auto;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+.relative-button {
+  position: relative;
+  display: flex;
+  height: 50px;
+  width: 160px; /* Changed from w-40 to a specific width */
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background-color: #2d3748; /* bg-gray-800 */
+  color: #fff;
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.5); /* shadow-2xl */
+  transition: all 0.3s;
+}
+
+.hover-effect {
+  position: absolute;
+  border-radius: 50%;
+  background-color: #dd6b20; /* bg-orange-600 */
+  pointer-events: none;
+  transform: translate(-50%, -50%) scale(0);
+  transition: transform 0.3s ease-out, width 0.3s ease-out, height 0.3s ease-out;
+  width: 0;
+  height: 0;
+}
+
+.relative-button:hover .hover-effect {
+  transform: translate(-50%, -50%) scale(1);
+}
+.drop-shadow {
+  &-key-highlights {
+    box-shadow: 0px 0px 29px 0px #00000026;
+  }
+}
+
+#progressbar {
+  position: fixed;
+  background-color: red;
+  z-index: 999;
+  scale: 0 1;
+  animation: scroll-watcher linear;
+  transform-origin: left;
+  animation-timeline: scroll();
+  top: 0;
+  height: 6px;
+  border-radius: 20px;
+  width: 100%;
+}
+
+@keyframes scroll-watcher {
+  to {
+    scale: 1 1;
+    background-color: pink;
+  }
+}
+
+img {
+  animation: fade-in linear;
+  animation-timeline: view(200px);
+}
+
+@keyframes fade-in {
+  from {
+    scale: 0.8;
+    opacity: 0;
+  }
+  to {
+    scale: 1;
+    opacity: 1;
+  }
+}

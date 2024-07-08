@@ -1,0 +1,105 @@
+---
+import Card from "./Card.astro";
+
+const {} = Astro.props;
+---
+
+<section
+  class="p-[50px] md:p-[100px] delay-[300ms] duration-[1200ms] taos:translate-y-[-200px] taos:opacity-0"
+  data-taos-offset="500"
+>
+  <!-- <div
+    class="flex flex-col xl:items-start xl:flex-row xl:gap-[300px] justify-between"
+  >
+    <div class="">
+      <div class="">
+        <div class="relative">
+          <img class="" src="/images/A.png" alt="" />
+          <p
+            class="absolute uppercase top-[40px] left-[72px] w-full font-semibold text-[#AFAFAF]"
+          >
+            About this event
+          </p>
+          <div
+            class="absolute left-[88px] bottom-[-93px] md:bottom-[-180px] md:left-[74px]"
+          >
+            <img
+              src="/images/Group (7).png"
+              class="object-cover w-[200px] md:w-[340px]"
+              alt=""
+            />
+
+            <div class="mt-[30px]">
+              <div class="w-[200px] h-[1px] bg-[#A7A7A7] relative">
+                <img
+                  class="absolute left-0 bottom-[-0.5px]"
+                  src="/images/Rectangle 4392.png"
+                  alt=""
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mt-[150px] md:mt-[254px]">
+        <p class="text-[18px] font-light xl:max-w-[366px] text-gray-400">
+          Money Conclave is a premier event designed to instill financial
+          empowerment to Indians from all financial backgrounds. This
+          comprehensive gathering unites finance enthusiasts, industry experts,
+          and aspiring go-getters seeking to unlock their financial potential.
+        </p>
+      </div>
+      <div class="mt-[50px]">
+        <button
+          class="px-[25px] py-[19px] text-center font-semibold bg-green-400 text-white"
+          >Download Brochure</button
+        >
+      </div>
+    </div>
+    <div class="relative h-full mx-auto mt-[50px] xl:mt-0">
+      <img
+        src="/images/Mask group (27).png"
+        class="md:w-[402px] md:h-[514px] w-[250px] object-cover"
+        alt=""
+      />
+      <img
+        src="/images/Mask group (28).png"
+        class="absolute top-[101px] left-[-70px]"
+        alt=""
+      />
+      <div class="absolute top-[200px] left-[-50px] md:left-[-150px]">
+        <div class="relative w-[130px] md:w-[324px]">
+          <img src="/images/Mask group (27).png" alt="" />
+          <div class="absolute gradient h-full w-full z-10 top-0 left-0"></div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+  <div class="items-center justify-between mx-auto flex flex-col lg:flex-row">
+    <div
+      class="font-light text-gray-500 sm:text-lg dark:text-gray-400 max-w-2xl mb-10"
+    >
+      <h2
+        class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white"
+      >
+        We didn't reinvent the wheel
+      </h2>
+      <p class="mb-4">
+        We are strategists, designers and developers. Innovators and problem
+        solvers. Small enough to be simple and quick, but big enough to deliver
+        the scope you want at the pace you need. Small enough to be simple and
+        quick, but big enough to deliver the scope you want at the pace you
+        need.
+      </p>
+      <p>
+        We are strategists, designers and developers. Innovators and problem
+        solvers. Small enough to be simple and quick.
+      </p>
+    </div>
+    <div class="flex gap-10 justify-between">
+      <Card name="Name" src="/images/random.jpg" />
+      <Card name="Name" src="/images/person-2.jpeg" />
+    </div>
+  </div>
+</section>
