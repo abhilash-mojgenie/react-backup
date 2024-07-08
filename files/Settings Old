@@ -1,0 +1,397 @@
+import React, { useEffect, useState } from 'react';
+import Layout from '../../../common/layout';
+import SearchWithBorder from '../../../common/components/common/SearchWithBorder';
+import LandingPageListing from '../components/LandingPageListing';
+import {
+  isSuperAdminFunction,
+  isTenantAdminFunction,
+  isTenantUserFunction,
+} from '../../../common/helpers/utils';
+
+function SettingsCommVoiceAdmin() {
+  const isTenantUSer = isTenantUserFunction();
+  const isTenantAdmin = isTenantAdminFunction();
+  const isSuperAdmin = isSuperAdminFunction();
+
+  const [userType, setUserType] = useState('');
+
+  const [searchTerm, setSearchTerm] = useState('');
+  const [callSettingsSearchResult, setCallSettingsSearchResult] = useState([]);
+  const [settingsSearchResult, setSettingsSearchResult] = useState([]);
+  const [planBillingSearchResult, setPlanBillingSettingsSearchResult] = useState([]);
+
+  const getUSerType = () => {
+    if (isSuperAdmin) {
+      setUserType('super-admin');
+    } else if (isTenantAdmin) {
+      setUserType('tenant-admin');
+    } else if (isTenantUSer) {
+      setUserType('tenant-user');
+    }
+    return null;
+  };
+  const CallSettingsMenu = [
+    {
+      img: '/assets/flows-admin.svg',
+      title: 'Call Flows',
+      link: '/comm-voice-admin/call-flows',
+      desc: 'Configure and set up call flows for the customer.',
+      visibility: ['super-admin', 'tenant-admin', 'tenant-user'],
+    },
+    {
+      img: '/assets/voice-admin.svg',
+      title: 'Voice library',
+      link: '/comm-voice-admin/voice-library',
+      desc: 'List of all voice files uploaded in the library.',
+      visibility: ['super-admin', 'tenant-admin', 'tenant-user'],
+    },
+    {
+      img: '/assets/agent-availability.svg',
+      title: 'Agent Availability',
+      link: '/comm-voice-admin/agent-availability/',
+      desc: 'Configure agent availability and working hours.',
+      visibility: ['super-admin', 'tenant-admin'],
+    },
+    {
+      img: '/assets/caller-list.svg',
+      title: 'Caller list',
+      link: '/comm-voice-admin/caller-list',
+      desc: 'Manage all caller information in an organized list.',
+      visibility: ['super-admin', 'tenant-user', 'tenant-admin'],
+    },
+    {
+      img: '/assets/sms-settings-admin.svg',
+      title: 'SMS Settings',
+      link: '/comm-voice-admin/sms-settings/',
+      desc: 'Configure SMS templates, sender id and more.',
+      visibility: ['super-admin', 'tenant-admin'],
+    },
+    {
+      img: '/assets/PhoneIncoming.svg',
+      title: 'Callback List',
+      link: '/comm-voice-admin/call-back-list/',
+      desc: 'Manage all call back requests ans perform action.',
+      visibility: ['super-admin', 'tenant-admin'],
+    },
+    {
+      img: '/assets/api-icon-img.svg',
+      title: 'API Library',
+      link: '/comm-voice-admin/api-library/',
+      desc: 'Create and manages APIs for campaign.',
+      visibility: ['super-admin', 'tenant-admin'],
+    },
+    {
+      img: '/assets/virtual-num.svg',
+      title: 'Virtual Number',
+      link: '/comm-telephony/virtual-number/',
+      desc: 'Create and manages virtual numbers.',
+      visibility: ['super-admin', 'tenant-admin'],
+    },
+  ];
+  const SettingsMenu = [
+    {
+      img: '/assets/Account-admintools.svg',
+      title: 'Account Information',
+      link: '/comm-telephony/account-information/',
+      desc: 'Company basic info, address, KYC and billing address etc.',
+      visibility: ['super-admin', 'tenant-admin', 'tenant-user'],
+    },
+    {
+      img: '/assets/comm-admin-tool-icons.svg',
+      title: 'Agents & Departments',
+      link: '/comm-telephony/agents-departments/',
+      desc: 'Manage agents based on their departments',
+      visibility: ['super-admin', 'tenant-admin'],
+    },
+    {
+      img: '/assets/General-settings-icon.svg',
+      title: 'General Settings',
+      link: '/comm-telephony/comm-general-settings/',
+      desc: 'Customize the applications with advanced settings.',
+      visibility: ['super-admin', 'tenant-admin'],
+    },
+    {
+      img: '/assets/roles-icon.svg',
+      title: 'Roles and Permissions',
+      link: '/comm-telephony/roles-and-permissions/',
+      desc: 'Manage roles and associated permissions to users.',
+      visibility: ['super-admin', 'tenant-admin'],
+    },
+    {
+      img: '/assets/vendor-img.svg',
+      title: 'Vendor plans & packages',
+      link: '/comm-telephony/vendor-plans-and-packges/',
+      desc: 'Manage carriers , carrier groups, batch, lots and plans',
+      visibility: ['super-admin'],
+    },
+  ];
+
+  const PlanBillingMenu = [
+    {
+      img: '/assets/subscription-icon.svg',
+      title: 'Subscription',
+      link: '/comm-voice-admin/sub-and-billing/subscription',
+      desc: 'Manage your subscription plan, bills and invoices.',
+      visibility: ['super-admin', 'tenant-admin', 'tenant-user'],
+    },
+    {
+      img: '/assets/invoice.svg',
+      title: 'Invoice & Payments',
+      link: '/comm-voice-admin/wallet/',
+      desc: 'Manage payment method for the system payments.',
+      visibility: ['super-admin', 'tenant-admin'],
+    },
+    {
+      img: '/assets/wallet.svg',
+      title: 'Wallet',
+      link: '/comm-voice-admin/wallet/',
+      desc: 'Manage your fund balance and add funds to it.',
+      visibility: ['super-admin', 'tenant-admin'],
+    },
+  ];
+  function findValuesByNameFromCallSettings() {
+    const filteredNamesIn = CallSettingsMenu.filter((obj) => {
+      const result = obj.title?.toLowerCase().includes(searchTerm?.toLowerCase());
+      return result;
+    });
+
+    return filteredNamesIn;
+  }
+
+  function findValuesByNameFromSettings() {
+    const filteredNamesIn = SettingsMenu.filter((obj) => {
+      const result = obj.title?.toLowerCase().includes(searchTerm?.toLowerCase());
+      return result;
+    });
+
+    return filteredNamesIn;
+  }
+  function findValuesByNameFromPlanBilling() {
+    const filteredNamesIn = PlanBillingMenu.filter((obj) => {
+      const result = obj.title?.toLowerCase().includes(searchTerm?.toLowerCase());
+      return result;
+    });
+
+    return filteredNamesIn;
+  }
+  const handleSearch = () => {
+    const searchResultFromCallSettings = findValuesByNameFromCallSettings();
+    setCallSettingsSearchResult(searchResultFromCallSettings);
+
+    const searchResultFromSettings = findValuesByNameFromSettings();
+    setSettingsSearchResult(searchResultFromSettings);
+
+    const searchResultFromPlanBilling = findValuesByNameFromPlanBilling();
+    setPlanBillingSettingsSearchResult(searchResultFromPlanBilling);
+  };
+  useEffect(() => {
+    handleSearch();
+  }, [searchTerm]);
+  useEffect(() => {
+    getUSerType();
+  }, []);
+
+  return (
+    <Layout title="comm voice" headerTitle="Settings" favIcon="/favicon-voice.ico">
+      <div className="wrapper">
+        <div className="bg-gray-bright w-100">
+          <div className="gap-3 p-16px p-md-18px mt-66px ms-md-0 ms-lg-65px h-fit">
+            <div className="bg-white shadow-1 rounded pt-20px pb-20px ps-20px pe-20px scroll-custom scroll-landing-admin h-100 commmon-mob-padding">
+              <div
+                className="top-wrap-common-mob d-flex justify-content-between align-items-center"
+                id="telephonyMainHead"
+              >
+                <div>
+                  <div className="d-flex gap-2 align-items-center">
+                    <a id="adminBack" href="/#" className="d-block d-lg-none">
+                      <img src="/assets/left-arrow-black.svg" alt="" />
+                    </a>
+                    <p className="mb-0 fs-16px fw-500">Comm Voice Admin</p>
+                  </div>
+
+                  <p className="mb-2 mb-lg-4 mt-1">
+                    All the configuration of your comm voice application
+                  </p>
+                </div>
+                <div className="col-sm-4 d-none d-sm-block">
+                  <SearchWithBorder placeholderText="Search Settings" />
+                </div>
+              </div>
+
+              <div className="row">
+                <div id="adminMainSec" className="equal-pad">
+                  <div className="carrier-pad ps-3 pe-2">
+                    <div className="col-lg-4 col-sm-12 mt-2 mt-lg-1 mt-sm-4 mb-4 d-block d-sm-none">
+                      <SearchWithBorder
+                        placeholderText="Search Settings"
+                        searchTerm={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        clearBtn={() => {
+                          setSearchTerm('');
+                        }}
+                      />
+                    </div>
+                    <h5 className="mb-0 fs-15px mt-sm-4">Call Settings</h5>
+
+                    <div className="row mt-3">
+                      <div className="col-lg-4 col-sm-6 mb-4">
+                        <LandingPageListing
+                          img="/assets/flows-admin.svg"
+                          title="Call Flows"
+                          link="/comm-voice-admin/call-flows"
+                          desc="Configure and set up call flows for the customer."
+                        />
+                      </div>
+                      <div className="col-lg-4 col-sm-6 mb-4">
+                        <LandingPageListing
+                          img="/assets/voice-admin.svg"
+                          title="Voice library"
+                          link="/comm-voice-admin/voice-library"
+                          desc="List of all voice files uploaded in the library."
+                        />
+                      </div>
+                      <div className="col-lg-4 col-sm-6 mb-4">
+                        <LandingPageListing
+                          img="/assets/agent-availability.svg"
+                          title="Agent Availability"
+                          link="/comm-voice-admin/agent-availability/"
+                          desc="Configure agent availability and working hours."
+                        />
+                      </div>
+                      <div className="col-lg-4 col-sm-6 mb-4">
+                        <LandingPageListing
+                          img="/assets/caller-list.svg"
+                          title="Caller list"
+                          link="/comm-voice-admin/caller-list"
+                          desc="Manage all caller information in an organized list."
+                        />
+                      </div>
+                      <div className="col-lg-4 col-sm-6 mb-4">
+                        <LandingPageListing
+                          img="/assets/PhoneIncoming.svg"
+                          title="Callback List"
+                          link="/comm-voice-admin/call-back-list/"
+                          desc="Manage all call back requests ans perform action."
+                        />
+                      </div>
+
+                      <div className="col-lg-4 col-sm-6 mb-4">
+                        <LandingPageListing
+                          img="/assets/sms-settings-admin.svg"
+                          title="SMS Settings"
+                          link="/comm-voice-admin/sms-settings/"
+                          desc="Configure SMS templates, sender id and more."
+                        />
+                      </div>
+                      <div className="col-lg-4 col-sm-6 mb-4">
+                        <LandingPageListing
+                          img="/assets/api-icon-img.svg"
+                          title="API Library"
+                          link="/comm-voice-admin/api-library/"
+                          desc="Create and manages APIs for campaign."
+                        />
+                      </div>
+                      <div className="col-lg-4 col-sm-6 mb-4">
+                        <LandingPageListing
+                          img="/assets/virtual-num.svg"
+                          title="Virtual Number"
+                          link="/comm-telephony/virtual-number/"
+                          desc="Create and manages virtual numbers."
+                        />
+                      </div>
+                    </div>
+                    <h5 className="mb-3 mt-3">Settings</h5>
+
+                    <div className="row">
+                      <div className="col-lg-4 col-sm-6 mb-4">
+                        <LandingPageListing
+                          img="/assets/Account-admintools.svg"
+                          title="Account Information"
+                          link="/comm-voice-admin/account-information/"
+                          desc="Company basic info, address, KYC and billing address etc."
+                        />
+                      </div>
+                      <div className="col-lg-4 col-sm-6 mb-4">
+                        <LandingPageListing
+                          img="/assets/comm-admin-tool-icons.svg"
+                          title="Agents & Departments"
+                          link="/comm-telephony/agents-departments/"
+                          desc="Manage agents based on their departments"
+                        />
+                      </div>
+                      <div className="col-lg-4 col-sm-6 mb-4">
+                        <LandingPageListing
+                          img="/assets/General-settings-icon.svg"
+                          title="General Settings"
+                          link="/comm-telephony/comm-general-settings/"
+                          desc="Customize the applications with advanced settings."
+                        />
+                      </div>
+                      <div className="col-lg-4 col-sm-6 mb-4">
+                        <LandingPageListing
+                          img="/assets/roles-icon.svg"
+                          title="Roles and Permissions"
+                          link="/comm-telephony/roles-and-permissions/"
+                          desc="Manage roles and associated permissions to users."
+                        />
+                      </div>
+
+                      <div className="col-lg-4 col-sm-6 mb-4 d-flex d-none d-sm-block">
+                        <LandingPageListing
+                          img="/assets/vendor-img.svg"
+                          title="Vendor plans & packages"
+                          link="/comm-telephony/vendor-plans-and-packges/"
+                          desc="Manage carriers , carrier groups, batch, lots and plans"
+                        />
+                      </div>
+                      <div className="col-lg-4 col-sm-6 mb-4 d-flex d-block d-sm-none">
+                        <LandingPageListing
+                          img="/assets/vendor-img.svg"
+                          title="Vendor plans & packages"
+                          link="/comm-telephony/vendor-plans-and-packges-mobile/"
+                          desc="Manage carriers , carrier groups, batch, lots and plans"
+                        />
+                      </div>
+                    </div>
+
+                    <h5 className="mb-3 mt-3">Plan & Billing</h5>
+
+                    <div className="row">
+                      <div className="col-lg-4 col-sm-6 mb-4">
+                        <LandingPageListing
+                          img="/assets/subscription-icon.svg"
+                          title="Subscription"
+                          link="/comm-voice-admin/sub-and-billing/subscription"
+                          desc="Manage your subscription plan, bills and invoices."
+                        />
+                      </div>
+                      <div className="col-lg-4 col-sm-6 mb-4">
+                        <LandingPageListing
+                          img="/assets/invoice.svg"
+                          title="Invoice & Payments"
+                          link="/comm-voice-admin/wallet/"
+                          desc="Manage payment method for the system payments."
+                        />
+                      </div>
+                      <div className="col-lg-4 col-sm-6 mb-4">
+                        <LandingPageListing
+                          img="/assets/wallet.svg"
+                          title="Wallet"
+                          link="/comm-voice-admin/wallet/"
+                          desc="Manage your fund balance and add funds to it."
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Layout>
+  );
+}
+
+export default SettingsCommVoiceAdmin;
+

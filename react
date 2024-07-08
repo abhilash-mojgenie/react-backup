@@ -1,0 +1,259 @@
+import './App.css';
+import { useState } from 'react';
+
+function Person({ name,lname,age})
+{
+  return (
+    <>
+      <h1>Name :{name}</h1>
+      <h1>LastName : {lname}</h1>
+      <h1>Age : {age}</h1>
+    </>
+  )
+}
+
+//props are arguments tht can be accessed in react component
+
+function App() {
+  return (
+    <div className="App">
+    <div className='mt-10'>
+        <Person name={'Kohn'} lname={'kohnl'} age={25}/>
+        <Person name={'Mary'} lname={'maryl'} age={45} />
+        <Person name={'Ajay'} lname={'ajayl'} age={15} />
+
+    </div>
+    </div>
+  );
+}
+
+export default App;
+""""''''''''''''''''''''''''''''''""""
+
+
+
+import './App.css';
+import { useState } from 'react';
+
+
+/// use state is an hook tells about the current situation ofthe variable associated with it
+//props are arguments tht can be accessed in react component
+
+function App() {
+  const [counter,setCounter]=useState(0)
+
+  
+  function increment()
+  {
+    setCounter(counter+1)
+  }
+
+  function decrement()
+  {
+    if(counter>0)
+    {
+      setCounter(counter-1)
+    }
+  }
+
+  function reset()
+  {
+    setCounter(0)
+  }
+  return (
+    <div className="App">  
+  <div className='flex justify-center h-screen items-center gap-10'>
+    <p className='text-7xl font-extralight'>{counter}</p>
+    
+        <div className='flex justify-between w-52 text-center gap-5'>
+         
+          <button className='bg-red-600 px-10 text-white rounded-md' onClick={decrement}>-</button>
+
+          <button className='bg-green-600 px-10 text-white rounded-md' onClick={()=>{setCounter(counter +1)}}>+</button>
+
+          <button className='bg-gray-600 px-10 text-white rounded-md' onClick={reset}>Reset</button>
+
+
+        </div>
+  </div>
+
+    </div>
+  );
+}
+
+export default App;
+
+
+
+
+import './App.css';
+import { useState } from 'react';
+
+
+/// use state is an hook tells about the current situation ofthe variable associated with it
+//props are arguments tht can be accessed in react component
+
+function App() {
+  const [counter,setCounter]=useState()
+
+  
+
+  
+  function increment()
+  {
+    setCounter(counter+1)
+  }
+
+  function decrement()
+  {
+    if(counter>0)
+    {
+      setCounter(counter-1)
+    }
+  }
+
+  function reset()
+  {
+    setCounter(0)
+  }
+  return (
+    <div className="App">  
+  <div className='flex justify-center h-screen items-center gap-10'>
+        <input type="number" className='border' name="" value={counter} onChange={(e) => setCounter(e.target.value)} id="" />
+    
+        <div className='flex justify-between w-52 text-center gap-5'>
+         
+          <button className='bg-red-600 px-10 text-white rounded-md' onClick={decrement}>-</button>
+
+          <button className='bg-green-600 px-10 text-white rounded-md' onClick={increment}>+</button>
+
+          <button className='bg-gray-600 px-10 text-white rounded-md' onClick={reset}>Reset</button>
+
+
+        </div>
+  </div>
+
+    </div>
+  );
+}
+
+export default App;
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+API CALLING
+
+import axios from 'axios';
+import './App.css';
+import { useEffect, useState } from 'react';
+
+
+/// use state is an hook tells about the current situation ofthe variable associated with it
+//props are arguments tht can be accessed in react component
+
+function App() {
+  // const [counter, setCounter] = useState(0)
+  // const [inputValue, setinputValue] = useState(0)
+
+  const [users, setUsers] = useState([]);
+
+  // function increment() {
+  //   setCounter(parseInt(inputValue) + counter)
+  // }
+
+  // function decrement() {
+  //   if (counter > 0) {
+  //     setCounter(counter - parseInt(inputValue))
+  //   }
+  // }
+
+  // function reset() {
+  //   setCounter(0)
+  //   setinputValue(0)
+  // }
+
+  useEffect(() => {
+    axios.get('https://jsonplaceholder.typicode.com/users')
+      .then((response) => {
+
+        console.log(response.data);
+
+        setUsers(response.data)
+      })
+
+  }, [])
+
+
+
+
+
+
+
+  return (
+    <div className="App">
+      {/* <div className='flex justify-center h-screen items-center gap-10'>
+
+        <input type="number" className='border' value={inputValue} onChange={(e) => setinputValue(e.target.value)} />
+        <input type="number" className='border' name="" value={counter} id="" />
+
+        <div className='flex justify-between w-52 text-center gap-5'>
+
+          <button className='bg-red-600 px-10 text-white rounded-md' onClick={decrement}>-</button>
+
+          <button className='bg-green-600 px-10 text-white rounded-md' onClick={increment}>+</button>
+
+          <button className='bg-gray-600 px-10 text-white rounded-md' onClick={reset}>Reset</button>
+
+
+        </div>
+      </div> */}
+
+      <div class="container">
+        <div class="table-wrapper" >
+          <table>
+            <thead>
+              <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Username</th>
+                <th>Phone</th>
+
+                <th>Company Name</th>
+
+                <th>Address</th>
+
+              </tr>
+            </thead>
+            <tbody>
+              {
+                users.length > 0 && users.map((user) => 
+                   (
+                    <tr>
+
+                      <td>{user.id}</td>
+                    <td>{user.name}</td>
+                    <td>{user.username}</td>
+                    <td>{user.phone}</td>
+                    <td>{user.company.name}</td>
+                    <td>{user.address.city},{user.address.street},{user.address.zipcode}</td>
+
+                    </tr>
+                  )
+                )
+              }
+
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+
+
+
+    </div>
+  );
+}
+
+export default App;
+

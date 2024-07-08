@@ -1,0 +1,16 @@
+---
+const { name, src } = Astro.props;
+---
+
+<div class="w-full flex flex-col items-center md:gap-[15px] gap-[30px]">
+    <img
+        class="w-[100px] h-[100px] md:w-[200px] md:h-[200px] rounded-full object-cover"
+        src={src}
+        alt=""
+    />
+    <div class="text-center">
+        <p class="font-semibold md:text-[18px] text-[10px] whitespace-nowrap">
+            {name}
+        </p>
+    </div>
+</div>

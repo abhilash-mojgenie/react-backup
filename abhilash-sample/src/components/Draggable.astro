@@ -1,0 +1,337 @@
+<div id="canvasContainer"></div>
+
+<button id="createCanvasBtn">Create Canvas</button>
+
+<button id="createElementBtn" class="hidden">Create Element</button>
+
+<!-- Canvas Modal -->
+<div id="canvasModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2 id="canvasModalHeader">Create Canvas</h2>
+    <form id="canvasForm">
+      <label for="canvasWidth">Width:</label>
+      <input type="number" id="canvasWidth" name="canvasWidth" /><br /><br />
+
+      <label for="canvasHeight">Height:</label>
+      <input type="number" id="canvasHeight" name="canvasHeight" /><br /><br />
+
+      <label for="imageUpload">Upload Image:</label>
+      <input type="file" id="imageUpload" accept="image/*" /><br /><br />
+
+      <div id="imagePreview" style="display: none;">
+        <img
+          id="previewImage"
+          src=""
+          alt="Image Preview"
+          style="max-width: 100%; max-height: 200px;"
+        />
+        <button type="button" id="removeImageBtn">Remove Image</button>
+      </div><br />
+
+      <button type="button" id="createCanvasSubmit">Create</button>
+    </form>
+  </div>
+</div>
+
+<!-- Create Element Modal -->
+<div id="myModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2 id="modalHeader">Create New Element</h2>
+    <form id="createForm">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required /><br /><br />
+
+      <label for="font">Font:</label>
+      <select id="font" name="font">
+        <option value="Arial">Arial</option>
+        <option value="Courier New">Courier New</option>
+        <option value="Georgia">Georgia</option>
+        <option value="Times New Roman">Times New Roman</option>
+        <option value="Verdana">Verdana</option>
+      </select><br /><br />
+
+      <label for="fontSize">Font Size:</label>
+      <input type="number" id="fontSize" name="fontSize" required /><br /><br />
+      <div class="flex flex-row justify-start gap-10">
+        <label for="fontColor">Font Color:</label>
+        <input type="color" id="fontColorInput" value="" />
+      </div><br /><br />
+      <label for="numClones">Number of Clones:</label>
+      <input
+        type="number"
+        id="numClones"
+        name="numClones"
+        min="1"
+        value="1"
+        required
+      /><br /><br />
+
+      <label for="rotation">Rotation Angle:</label>
+      <select id="rotation" name="rotation">
+        <option value="0">0°</option>
+        <option value="45">45°</option>
+        <option value="90">90°</option>
+        <option value="135">135°</option>
+        <option value="180">180°</option>
+        <option value="225">225°</option>
+        <option value="270">270°</option>
+        <option value="315">315°</option>
+      </select><br /><br />
+
+      <button type="button" id="createElement">Create</button>
+      <button type="button" id="deleteElement" style="display:none;"
+        >Delete</button
+      >
+    </form>
+  </div>
+</div>
+
+<script type="module">
+  document.addEventListener("DOMContentLoaded", function () {
+    let createdElements = []; // Array to store created elements
+    let canvasCreated = false;
+    let currentImageSrc = null;
+
+    const fontColorInput = document.getElementById("fontColorInput");
+    const canvasContainer = document.getElementById("canvasContainer");
+    let scale = 1;
+    const scaleStep = 0.1;
+
+    canvasContainer.addEventListener("wheel", function (event) {
+      if (event.ctrlKey) {
+        event.preventDefault();
+        if (event.deltaY < 0) {
+          scale += scaleStep;
+        } else {
+          scale -= scaleStep;
+          if (scale < scaleStep) {
+            scale = scaleStep;
+          }
+        }
+        canvasContainer.style.transform = `scale(${scale})`;
+      }
+    });
+
+    const canvasModal = document.getElementById("canvasModal");
+    const canvasWidthInput = document.getElementById("canvasWidth");
+    const canvasHeightInput = document.getElementById("canvasHeight");
+    const imageUploadInput = document.getElementById("imageUpload");
+    const imagePreview = document.getElementById("imagePreview");
+    const previewImage = document.getElementById("previewImage");
+    const removeImageBtn = document.getElementById("removeImageBtn");
+    const modal = document.getElementById("myModal");
+    const createButton = document.getElementById("createElement");
+    const deleteButton = document.getElementById("deleteElement");
+    const nameInput = document.getElementById("name");
+    const fontInput = document.getElementById("font");
+    const fontSizeInput = document.getElementById("fontSize");
+    const rotationInput = document.getElementById("rotation");
+    const numClonesInput = document.getElementById("numClones"); // Number of clones input
+    const modalHeader = document.getElementById("modalHeader");
+    const createCanvasBtn = document.getElementById("createCanvasBtn");
+    const createElementBtn = document.getElementById("createElementBtn");
+    const createCanvasSubmitBtn = document.getElementById("createCanvasSubmit");
+    const canvasModalHeader = document.getElementById("canvasModalHeader");
+
+    createCanvasBtn.addEventListener("click", function () {
+      canvasModalHeader.textContent = canvasCreated
+        ? "Edit Canvas"
+        : "Create Canvas";
+      canvasWidthInput.value =
+        canvasContainer.style.width.replace("px", "") || "";
+      canvasHeightInput.value =
+        canvasContainer.style.height.replace("px", "") || "";
+
+      if (currentImageSrc) {
+        previewImage.src = currentImageSrc;
+        imagePreview.style.display = "block";
+      } else {
+        imagePreview.style.display = "none";
+      }
+      showModal(canvasModal);
+    });
+
+    imageUploadInput.addEventListener("change", function () {
+      const file = imageUploadInput.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          currentImageSrc = e.target.result;
+          previewImage.src = currentImageSrc;
+          imagePreview.style.display = "block";
+        };
+        reader.readAsDataURL(file);
+      } else {
+        currentImageSrc = null;
+        imagePreview.style.display = "none";
+      }
+    });
+
+    createCanvasSubmitBtn.addEventListener("click", function () {
+      const width = parseInt(canvasWidthInput.value);
+      const height = parseInt(canvasHeightInput.value);
+      createCanvas(width, height, currentImageSrc);
+    });
+
+    function createCanvas(width, height, imageSrc) {
+      if (imageSrc) {
+        const img = new Image();
+        img.onload = function () {
+          canvasContainer.style.width = img.width + "px";
+          canvasContainer.style.height = img.height + "px";
+          canvasContainer.style.border = "1px solid black";
+          canvasContainer.style.position = "relative";
+        };
+        img.src = imageSrc;
+      } else {
+        canvasContainer.style.width = width + "px";
+        canvasContainer.style.height = height + "px";
+        canvasContainer.style.border = "1px solid black";
+        canvasContainer.style.position = "relative";
+      }
+
+      if (imageSrc) {
+        canvasContainer.style.backgroundImage = "url('" + imageSrc + "')";
+        canvasContainer.style.backgroundSize = "cover";
+        canvasContainer.style.backgroundRepeat = "no-repeat";
+      } else {
+        canvasContainer.style.backgroundImage = "";
+      }
+
+      canvasCreated = true;
+      hideModal(canvasModal);
+      createElementBtn.classList.remove("hidden");
+    }
+
+    createElementBtn.addEventListener("click", function () {
+      showModal(modal);
+    });
+
+    function showModal(modalElement) {
+      modalElement.style.display = "block";
+    }
+
+    function hideModal(modalElement) {
+      modalElement.style.display = "none";
+    }
+
+    createButton.onclick = function () {
+      if (canvasCreated) {
+        if (createdElements.length > 0) {
+          const element = createdElements[0]; // Use the first element for editing
+          nameInput.value = element.textContent;
+          fontInput.value = element.style.fontFamily;
+          fontSizeInput.value = parseInt(element.style.fontSize, 10);
+          fontColorInput.value = element.style.color;
+          rotationInput.value = element.dataset.rotation || 0;
+          numClonesInput.value = createdElements.length;
+
+          createButton.textContent = "Edit";
+          modalHeader.textContent = "Edit Elements";
+          deleteButton.style.display = "block";
+        } else {
+          nameInput.value = "";
+          fontInput.value = "Arial";
+          fontSizeInput.value = "";
+          fontColorInput.value = "#000000";
+          rotationInput.value = "0";
+          numClonesInput.value = "1";
+
+          createButton.textContent = "Create";
+          modalHeader.textContent = "Create New Elements";
+          deleteButton.style.display = "none";
+        }
+        showModal(modal);
+      }
+    };
+
+    window.onclick = function (event) {
+      if (event.target == modal) {
+        hideModal(modal);
+      }
+    };
+
+    createButton.onclick = function () {
+      const name = nameInput.value;
+      const font = fontInput.value;
+      const fontSize = fontSizeInput.value + "px";
+      const rotation = rotationInput.value;
+      const numClones = parseInt(numClonesInput.value);
+      hideModal(modal);
+
+      createdElements.forEach((el) => el.remove()); // Remove existing elements
+      createdElements = [];
+
+      for (let i = 0; i < numClones; i++) {
+        const element = document.createElement("div");
+        element.className = "draggable";
+        element.style.fontFamily = font;
+        element.style.fontSize = fontSize;
+        element.textContent = name;
+        element.style.color = fontColorInput.value;
+        element.style.transform = `rotate(${rotation}deg)`;
+        element.dataset.rotation = rotation;
+
+        canvasContainer.appendChild(element);
+        createdElements.push(element);
+
+        interact(element).draggable({
+          inertia: true,
+          modifiers: [
+            interact.modifiers.restrictRect({
+              restriction: "parent",
+              endOnly: true,
+            }),
+          ],
+          autoScroll: true,
+          listeners: {
+            move: dragMoveListener,
+          },
+        });
+      }
+
+      createButton.textContent = "Edit";
+      modalHeader.textContent = "Edit Elements";
+      createElementBtn.textContent = "Edit Element";
+
+      deleteButton.style.display = "block";
+    };
+
+    deleteButton.onclick = function () {
+      createdElements.forEach((el) => el.remove());
+      createdElements = [];
+      createButton.textContent = "Create";
+      modalHeader.textContent = "Create New Elements";
+      deleteButton.style.display = "none";
+    };
+
+    removeImageBtn.onclick = function () {
+      currentImageSrc = null;
+      imagePreview.style.display = "none";
+      imageUploadInput.value = null;
+      canvasContainer.style.backgroundImage = "";
+    };
+
+    function dragMoveListener(event) {
+      const target = event.target;
+      const x = (parseFloat(target.getAttribute("data-x")) || 0) + event.dx;
+      const y = (parseFloat(target.getAttribute("data-y")) || 0) + event.dy;
+      target.style.transform = `translate(${x}px, ${y}px) rotate(${target.dataset.rotation || 0}deg)`;
+      target.setAttribute("data-x", x);
+      target.setAttribute("data-y", y);
+    }
+
+    const canvasModalCloseBtn = document.querySelector("#canvasModal .close");
+    canvasModalCloseBtn.addEventListener("click", function () {
+      hideModal(canvasModal);
+    });
+
+    const createElementModalCloseBtn =
+      document.querySelector("#myModal .close");
+    createElementModalCloseBtn.addEventListener("click", function () {
+      hideModal(modal);
+    });
+  });
+</script>

@@ -1,0 +1,25 @@
+✘ [ERROR] Expected ">" but found "btnId"
+
+    script:/home/mojgenie/Desktop/Chat-Bot-New-Design/chatbot-html-bkp/src/pages/flow-builder/flow-builder-component-article-empty.astro?id=0:3:17:
+      3 │     <ToastCustom btnId="saveMapTopics" id="artile-list-tost" client:load>You have successfully added the article</ToastCustom>
+        │                  ~~~~~
+        ╵                  >
+
+✘ [ERROR] Expected ">" but found "btnId"
+
+    script:/home/mojgenie/Desktop/Chat-Bot-New-Design/chatbot-html-bkp/src/pages/flow-builder/actions/flow-builder-action-block-chat.astro?id=0:2:13:
+      2 │ <ToastCustom btnId="propertySaveButton" id="save-toast" client:load>You have successfully saved the changes</ToastCustom>
+        │              ~~~~~
+        ╵              >
+
+Build failed with 1 error:
+script:/home/mojgenie/Desktop/Chat-Bot-New-Design/chatbot-html-bkp/src/pages/flow-builder/flow-builder-component-article-empty.astro?id=0:3:17: ERROR: Expected ">" but found "btnId"
+✘ [ERROR] Syntax error "c"
+
+    script:/home/mojgenie/Desktop/Chat-Bot-New-Design/chatbot-html-bkp/src/pages/login-methods/comm-voice/free-trial-final.astro?id=0:2:17:
+      2 │   /login-methods/comm-chat/free-trial-final
+        ╵                  ^
+
+03:07:42 PM [astro] update /src/pages/flow-builder/flow-builder-component-article.astro
+03:07:47 PM [astro] update /src/pages/flow-builder/flow-builder-component-article-empty.astro
+

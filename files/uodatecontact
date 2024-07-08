@@ -1,0 +1,69 @@
+ onSubmit: () => {
+      const filteredPhoneNumbers = formik.values.phoneNumbers.filter((item) => item.number !== '');
+
+      formik.values.phoneNumbers = filteredPhoneNumbers;
+
+      const filteredEmails = formik.values.emails.filter((item) => item.mail !== '');
+      formik.values.emails = filteredEmails;
+
+      const data = {
+        type: 'contacts',
+        id: parseInt(id, Number),
+        attributes: {
+          first_name: formik.values.first_name,
+          middle_name: formik.values.middle_name,
+          last_name: formik.values.last_name,
+          company_id: formik.values.company_id,
+        },
+      };
+
+      if (formik.values.emails && formik.values.emails.length > 0) {
+        data.relationships = {
+          contact_emails: {
+            data: formik.values.emails.map((item) => ({
+              type: 'contact_email',
+              id: 1,
+              attributes: {
+                label_id: item.label,
+                email: item.mail,
+              },
+            })),
+          },
+        };
+      }
+
+      if (formik.values.phoneNumbers && formik.values.phoneNumbers.length > 0) {
+        if (!data.relationships) {
+          data.relationships = {};
+        }
+
+        data.relationships.contact_phones = {
+          data: formik.values.phoneNumbers.map((item) => ({
+            type: 'contact_phone',
+            id: 1,
+            attributes: {
+              label_id: item.label,
+              phone: item.number,
+            },
+          })),
+        };
+      }
+
+      UpdateContact(data, id)
+        .then(() => {
+          setToastAction({
+            isVisible: true,
+            type: 'success',
+            message: 'Contact Updated!',
+          });
+          onClose();
+        })
+        .catch(() => {
+          setToastAction({
+            isVisible: true,
+            type: 'failed',
+            message: 'Error while updating Profile details!',
+          });
+        })
+        .finally(() => {});
+    },

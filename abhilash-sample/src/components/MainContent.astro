@@ -1,0 +1,45 @@
+---
+const {} = Astro.props;
+import AboutUs from "./AboutUs.astro";
+---
+
+<section
+    class="p-12 relative"
+    ata-aos="fade-left"
+    data-aos-anchor="#example-anchor"
+    data-aos-offset="500"
+    data-aos-duration="500"
+>
+    <div class="flex items-center gap-4 mb-10">
+        <div class="h-10 w-10">
+            <img src="/svg/dots.svg" alt="" />
+        </div>
+        <p class="text-2xl font-thin text-gray-900 dark:text-white">About Us</p>
+    </div>
+    <div class="">
+        <p class="text-sm md:text-xl font-sans font-light text-gray-500">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda
+            laborum cumque, magni illum numquam repudiandae doloribus, ipsa
+            culpa laboriosam sint fuga provident non nisi libero accusantium eum
+            est voluptates esse.
+        </p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-1 lg:gap-10 lg:grid-cols-4">
+        <AboutUs
+            head=" Card 1"
+            content="The place is close to Barceloneta Beach and bus stop just 2 min by walk"
+        />
+        <AboutUs
+            head=" Card 2"
+            content="The place is close to Barceloneta Beach and bus stop just 2 min by walk"
+        />
+        <AboutUs
+            head=" Card 3"
+            content="The place is close to Barceloneta Beach and bus stop just 2 min by walk"
+        />
+        <AboutUs
+            head=" Card 4"
+            content="The place is close to Barceloneta Beach and bus stop just 2 min by walk"
+        />
+    </div>
+</section>

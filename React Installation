@@ -1,0 +1,8 @@
+Instal NPM
+sudo apt install npm
+
+
+sudo npm -g install create-react-app
+create-react-app app-name
+cd project
+npm start

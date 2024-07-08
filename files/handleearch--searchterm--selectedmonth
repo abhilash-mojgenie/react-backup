@@ -1,0 +1,22 @@
+ const handleSearch = () => {
+    const matchingHolidays = allHolidays?.data?.filter((holiday) => {
+      const holidayDate = new Date(holiday.attributes.date);
+      const holidayMonth = holidayDate.getMonth() + 1;
+
+      if (selectedMonth === '') {
+        return (
+          searchTerm.trim() === '' ||
+          holiday.attributes.name.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+        // eslint-disable-next-line no-else-return
+      } else {
+        return (
+          holidayMonth.toString() === selectedMonth &&
+          (searchTerm.trim() === '' ||
+            holiday.attributes.name.toLowerCase().includes(searchTerm.toLowerCase()))
+        );
+      }
+    });
+
+    setSearchResult(matchingHolidays);
+  };

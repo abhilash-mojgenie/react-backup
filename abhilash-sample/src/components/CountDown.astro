@@ -1,0 +1,20 @@
+---
+const {} = Astro.props;
+import CountDiv from "./CountDiv.astro";
+---
+
+<div class="flex flex-col mx-auto md:mx-0">
+    <div
+        class="md:self-end self-center mt-10 text-black bg-transparent backdrop-blur px-[12px] pb-[30px]"
+    >
+        <p class="font-bold text-[18px] mb-[35px] text-white text-center">
+            Begins In
+        </p>
+        <div class="flex flex-row gap-[15px]">
+            <CountDiv id="days" text="days" />
+            <CountDiv id="hours" text="hours" />
+            <CountDiv id="minutes" text="minutes" />
+            <CountDiv id="seconds" text="seconds" />
+        </div>
+    </div>
+</div>

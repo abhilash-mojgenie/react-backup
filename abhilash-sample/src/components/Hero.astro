@@ -1,0 +1,70 @@
+---
+const {} = Astro.props;
+import CountDown from "./CountDown.astro";
+---
+
+<section
+    class="bg-[url(/images/registration-charges.png)] bg-no-repeat bg-cover p-12 relative min-h-screen"
+    id="animatedElement"
+>
+    <div class="flex text-white justify-start mx-auto lg:gap-8 xl:gap-0">
+        <div class="flex flex-col gap-10">
+            <div>
+                <h1
+                    class="max-w-2xl text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-white mb-10"
+                >
+                    Lorem ipsum dolor sit amet consectetur.
+                </h1>
+                <p
+                    class="max-w-2xl mb-6 font-light text-white lg:mb-8 md:text-lg lg:text-xl"
+                >
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Minima in voluptates delectus ab, debitis dolores cupiditate
+                    vel placeat deleniti!jjj
+                </p>
+            </div>
+            <div
+                class="flex gap-10 md:flex-row flex-col justify-between max-w-2xl"
+            >
+                <div class="flex flex-col text-[24px] gap-3">
+                    <p>2000 +</p>
+                    <p>Delegates</p>
+                </div>
+                <!-- Display horizontal rule on md and above -->
+                <div class="border-b bg-white border-white hidden md:block">
+                    i
+                </div>
+                <hr class="bg-white block md:hidden" />
+                <div class="flex flex-col text-[24px] gap-3">
+                    <p>100 +</p>
+                    <p>Speakers</p>
+                </div>
+                <!-- Display horizontal rule on md and above -->
+                <div class="border-b bg-white border-white hidden md:block">
+                    i
+                </div>
+                <hr class="bg-white block md:hidden" />
+                <div class="flex flex-col text-[24px] gap-3">
+                    <p>3000 +</p>
+                    <p>Attendees</p>
+                </div>
+            </div>
+
+            <div>
+                <div
+                    class="justify-center bg-transparent backdrop-blur text-[14px] md:text-[18px] 2xl:text-[21px] font-semibold flex gap-[30px] items-center py-[15px] md:pl-[30px] md:pr-[40px] px-[20px] rounded-full border border-white md:w-2xl"
+                >
+                    <img src="/svg/location.svg" alt="" class="h-7" />
+                    <p class="text-[20px]">Location Name</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="hidden md:flex flex-col gap-10 absolute top-32 right-3">
+        <img src="/svg/facebook.svg" alt="" />
+        <img src="/svg/insta.svg" alt="" />
+        <img src="/svg/linked-in.svg" alt="" />
+        <img src="/svg/x.svg" alt="" />
+    </div> -->
+    <!-- <CountDown /> -->
+</section>

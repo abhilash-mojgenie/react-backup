@@ -1,0 +1,101 @@
+---
+const {} = Astro.props;
+---
+
+<nav
+    class="bg-white border-gray-200 dark:bg-gray-900 py-3 shadow-lg sticky w-full z-20 top-0 start-0 duration-500 transition-all ease-in-out"
+>
+    <div class="flex flex-wrap items-center justify-between mx-auto px-4">
+        <div class="flex gap-5 mt-[-10px]">
+            <a href="#"
+                ><img
+                    src="/images/logo-2.avif"
+                    alt=""
+                    class="md:h-30 md:w-24 h-20 w-20"
+                /></a
+            >
+        </div>
+        <button
+            id="navbar-toggler"
+            data-collapse-toggle="navbar-default"
+            type="button"
+            class="inline-flex items-center p-2 w-10 h-10 mb-2 justify-center text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+            aria-controls="navbar-default"
+            aria-expanded="false"
+        >
+            <span class="sr-only">Open main menu</span>
+            <svg
+                class="w-5 h-5"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 17 14"
+            >
+                <path
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M1 1h15M1 7h15M1 13h15"></path>
+            </svg>
+        </button>
+        <div class="hidden w-full lg:block md:w-auto" id="navbar-default">
+            <ul
+                class="font-medium flex flex-col md:items-center gap-10 p-4 md:p-0 mt-4 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700"
+            >
+                {
+                    [
+                        { text: "Home", href: "#" },
+                        { text: "About", href: "#" },
+                        { text: "Services", href: "#" },
+                        { text: "Pricing", href: "#" },
+                        { text: "Registration", href: "#" },
+                    ].map((item, index) => (
+                        <li>
+                            <a
+                                href={item.href}
+                                class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#E3533C] md:p-0 dark:text-white md:dark:hover:text-[#C44856] dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                            >
+                                {item.text}
+                            </a>
+                        </li>
+                    ))
+                }
+                <button
+                    class="border bg-[#E3533C] rounded-lg px-16 py-3 text-white hover:bg-opacity-60"
+                    >Download</button
+                >
+            </ul>
+        </div>
+    </div>
+</nav>
+<script is:inline>
+    const button = document.getElementById("navbar-toggler");
+
+    // Your existing SVG and the new SVG
+    const originalSvg = `
+        <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"></path>
+        </svg>
+    `;
+
+    const newSvg = `
+        <svg class="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+        </svg>
+    `;
+
+    // Set the initial SVG
+    button.innerHTML = originalSvg;
+
+    // Toggle the SVG on each click
+    button.addEventListener("click", function () {
+        const isOpen = button.getAttribute("aria-expanded") === "false";
+
+        // Toggle the SVG based on the dropdown state
+        button.innerHTML = isOpen ? newSvg : originalSvg;
+
+        // Optionally, you can also toggle the aria-expanded attribute
+        button.setAttribute("aria-expanded", String(!isOpen));
+    });
+</script>

@@ -1,0 +1,40 @@
+---
+import Card from "./Card.astro";
+
+const {} = Astro.props;
+---
+
+<section class="p-12 relative" data-taos-offset="400">
+    <div class="flex items-center gap-4 mb-10" id="animatedElement">
+        <div class="h-10 w-10">
+            <img src="/svg/dots.svg" alt="" />
+        </div>
+        <p class="text-2xl font-thin text-gray-900 dark:text-white">Message</p>
+    </div>
+    <div class="items-center justify-between mx-auto flex flex-col lg:flex-row">
+        <div
+            class="font-light text-gray-500 sm:text-lg dark:text-gray-400 max-w-2xl mb-10"
+        >
+            <h2
+                class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white"
+            >
+                We didn't reinvent the wheel
+            </h2>
+            <p class="mb-4">
+                We are strategists, designers and developers. Innovators and
+                problem solvers. Small enough to be simple and quick, but big
+                enough to deliver the scope you want at the pace you need. Small
+                enough to be simple and quick, but big enough to deliver the
+                scope you want at the pace you need.
+            </p>
+            <p>
+                We are strategists, designers and developers. Innovators and
+                problem solvers. Small enough to be simple and quick.
+            </p>
+        </div>
+        <div class="flex gap-10 justify-between">
+            <Card name="Name" src="/images/random.jpg" />
+            <Card name="Name" src="/images/person-2.jpeg" />
+        </div>
+    </div>
+</section>

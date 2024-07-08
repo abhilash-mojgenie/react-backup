@@ -1,0 +1,35 @@
+ {filteredData.map((form, index) => (
+                        <div>
+                            <>
+                                <div key={index}>
+                                    <div className="px-32">
+                                        <h1 class="text-center font-extrabold text-transparent text-6xl text-pink-600">
+                                            {form.subject}
+                                        </h1>
+                                    </div>
+                                    <div
+                                        className="mt-14 px-32"
+                                        dangerouslySetInnerHTML={{
+                                            __html: form.message,
+                                        }}
+                                    />
+                                    <h1 className="text-center">
+                                        Blog Created By :{" "}
+                                        <span className="text-pink-600">
+                                            {form.name}
+                                        </span>
+                                    </h1>
+                                </div>
+                            </>
+
+                            <p
+                                onClick={() => {
+                                    setHide(false);
+                                    setContent("");
+                                    setSearchTerm("");
+                                }}
+                            >
+                                Back
+                            </p>d
+                        </div>
+                    ))}

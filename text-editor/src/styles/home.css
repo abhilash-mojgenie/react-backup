@@ -1,0 +1,182 @@
+.ql-toolbar {
+    border-bottom: none !important;
+    display: flex;
+    padding-left: 10px;
+    margin-top: 10px;
+    position: relative;
+    top: 150px;
+    width: 1008px;
+    left: 410px;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+}
+.quill {
+    margin-left: 410px;
+    margin-right: 400px;
+    height: 400px;
+    margin-top: 150px;
+    width: 1008px;
+}
+
+.ql-container {
+    border-top: none !important;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
+
+.ql-header {
+    margin-top: 6px !important;
+}
+
+.ql-header svg {
+    display: none;
+}
+.ql-list[value="bullet"] {
+    background-image: url("../../public/svg/ul.svg") !important;
+    text-align: center;
+}
+
+.ql-list[value="ordered"] {
+    background-image: url("../../public/svg/ol.svg") !important;
+    text-align: center;
+}
+
+.ql-list svg {
+    display: none;
+}
+.ql-list:hover {
+    opacity: 0.5;
+}
+.ql-bold {
+    background-image: url("../../public/svg/bold.svg") !important;
+    background-size: contain;
+    background-position: center;
+    text-align: center;
+}
+.ql-bold:hover {
+    opacity: 0.5;
+}
+.ql-bold svg {
+    display: none;
+}
+.ql-ordered {
+    background-image: url("../../public/svg/ol.svg") !important;
+    text-align: center;
+}
+.ql-ordered svg {
+    display: none;
+}
+.ql-italic {
+    background-image: url("../../public/svg/itallics.svg") !important;
+    background-size: contain;
+    background-position: center;
+    text-align: center;
+}
+.ql-italic svg {
+    display: none;
+}
+.ql-italic:hover,
+.ql-underline:hover,
+.ql-underline:hover,
+.ql-image:hover,
+.ql-blockquote:hover,
+.ql-code-block:hover,
+.ql-link:hover,
+.ql-strike:hover,
+.ql-clean:hover,
+.ql-newline:hover,
+.ql-hyphen:hover,
+.ql-undo:hover,
+.ql-redo:hover {
+    opacity: 0.5 !important;
+}
+.ql-underline {
+    background-image: url("../../public/svg/under-line.svg") !important;
+    background-size: contain;
+    background-position: center;
+    text-align: center;
+}
+.ql-underline svg {
+    display: none;
+}
+
+.ql-image {
+    background-image: url("../../public/svg/photo.svg") !important;
+    background-size: contain;
+    background-position: center;
+    text-align: center;
+}
+.ql-image svg {
+    display: none;
+}
+.ql-blockquote {
+    background-image: url("../../public/svg/qoute.svg") !important;
+    background-size: contain;
+    background-position: center;
+    text-align: center;
+}
+.ql-blockquote svg {
+    display: none;
+}
+.ql-code-block {
+    background-image: url("../../public/svg/br.svg") !important;
+    background-size: contain;
+    background-position: center;
+    text-align: center;
+}
+.ql-code-block svg {
+    display: none;
+}
+.ql-link {
+    background-image: url("../../public/svg/link.svg") !important;
+    background-repeat: no-repeat !important;
+    background-position: center;
+    margin-top: 5px !important;
+}
+.ql-link svg {
+    display: none;
+}
+.ql-icon-picker {
+    background-image: url("../../public/svg/text-align.svg") !important;
+    background-repeat: no-repeat !important;
+    background-position: center;
+}
+.ql-icon-picker .ql-picker-label svg {
+    display: none;
+}
+
+.ql-color-picker {
+    background-image: url("../../public/svg/color-picker.svg") !important;
+    background-repeat: no-repeat !important;
+    background-position: center;
+}
+
+.ql-color-picker .ql-picker-label svg {
+    display: none;
+}
+.ql-strike {
+    background-image: url("../../public/svg/line.svg") !important;
+    background-repeat: no-repeat !important;
+    background-position: center;
+}
+.ql-strike svg {
+    display: none;
+}
+.ql-clean {
+    background-image: url("../../public/svg/erase.svg") !important;
+    background-repeat: no-repeat !important;
+    background-position: center;
+}
+.ql-clean svg {
+    display: none;
+}
+.ql-newline {
+    background-image: url("../../public/svg/line-break.svg") !important;
+    background-repeat: no-repeat !important;
+    background-position: center;
+}
+.ql-hyphen {
+    background-image: url("../../public/svg/hyphen.svg") !important;
+    background-repeat: no-repeat !important;
+    background-position: center;
+}
